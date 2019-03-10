@@ -1,4 +1,4 @@
-package com.niki.eorder.Utility;
+package com.niki.eorder.utility;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -77,8 +77,8 @@ public class LoadingCallback<T> implements AsyncCallback<T>
     @Override
     public void handleFault( BackendlessFault fault )
     {
-        progressDialog.dismiss();
-        DialogHelper.createErrorDialog( context, "BackendlessFault", fault.getMessage() ).show();
+//        progressDialog.dismiss();
+//        DialogHelper.createErrorDialog( context, "BackendlessFault", fault.getMessage() ).show();
     }
 
     /**

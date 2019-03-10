@@ -1,6 +1,7 @@
 package com.niki.eorder;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,15 +14,20 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
-import com.niki.eorder.Utility.BackendlessSettings;
-import com.niki.eorder.Utility.LoadingCallback;
+import com.niki.eorder.utility.BackendlessSettings;
+import com.niki.eorder.utility.LoadingCallback;
 
 public class SignIn extends AppCompatActivity {
+    Button btnSignIn;
     ImageView ivSignIn;
     EditText etEmail, etPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // disable action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
@@ -31,6 +37,16 @@ public class SignIn extends AppCompatActivity {
         ivSignIn = findViewById(R.id.iv_sign_in);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
+        btnSignIn = findViewById(R.id.btn_dont_have_sign_up);
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignIn.this, SignUp.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         ivSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +84,7 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void handleResponse(BackendlessUser response) {
                 super.handleResponse(response);
-                Intent intent = new Intent(SignIn.this, MainActivity.class);
+                Intent intent = new Intent(SignIn.this, Dashboard.class);
                 startActivity(intent);
                 finish();
             }

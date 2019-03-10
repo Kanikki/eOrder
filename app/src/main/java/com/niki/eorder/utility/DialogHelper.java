@@ -1,4 +1,4 @@
-package com.niki.eorder.Utility;
+package com.niki.eorder.utility;
 
 import android.app.AlertDialog;
 import android.content.Context;

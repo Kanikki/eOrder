@@ -1,4 +1,4 @@
-package com.niki.eorder.Utility;
+package com.niki.eorder.utility;
 
 public class BackendlessSettings {
     public String applicationID = "69604328-B8E9-1670-FF2C-77292F6AA800";

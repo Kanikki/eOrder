@@ -1,6 +1,7 @@
 package com.niki.eorder;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,17 +14,22 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
-import com.niki.eorder.Utility.BackendlessSettings;
-import com.niki.eorder.Utility.LoadingCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.niki.eorder.utility.BackendlessSettings;
+import com.niki.eorder.utility.LoadingCallback;
 
 public class SignUp extends AppCompatActivity {
     Button btnSignIn;
     EditText etFullName, etEmail, etPassword;
     ImageView ivSignUp;
-
+    Boolean accepted = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // disable action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
@@ -57,9 +63,15 @@ public class SignUp extends AppCompatActivity {
                    LoadingCallback<BackendlessUser> registrationCallback = createRegistrationCallback();
                    registrationCallback.showLoading();
                    registerUser(fullName, email, password, registrationCallback);
-                    Toast.makeText(SignUp.this, "Thankyou for registered on e-Order", Toast.LENGTH_SHORT).show();
-                   Intent intent = new Intent(SignUp.this, SignIn.class);
-                   startActivity(intent);
+                   if (accepted){
+                       Intent intent = new Intent(SignUp.this, Home.class);
+                       startActivity(intent);
+                   }
+                   else{
+                       accepted = true;
+                       Toast.makeText(SignUp.this, "User already exists", Toast.LENGTH_SHORT).show();
+                   }
+
                 }
             }
         });
@@ -69,6 +81,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SignUp.this, SignIn.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -91,6 +104,12 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void handleResponse(BackendlessUser response) {
                 super.handleResponse(response);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                super.handleFault(fault);
+                accepted = false;
             }
         };
     }

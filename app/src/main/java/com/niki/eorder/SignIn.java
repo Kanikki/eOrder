@@ -1,6 +1,7 @@
 package com.niki.eorder;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,16 +12,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.backendless.Backendless;
-import com.backendless.BackendlessUser;
-import com.backendless.async.callback.AsyncCallback;
-import com.niki.eorder.utility.BackendlessSettings;
-import com.niki.eorder.utility.LoadingCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignIn extends AppCompatActivity {
-    Button btnSignIn;
-    ImageView ivSignIn;
-    EditText etEmail, etPassword;
+    private Button btnSignIn;
+    private ImageView ivSignIn;
+    private EditText etEmail, etPassword;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +32,12 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        BackendlessSettings backendlessSettings = new BackendlessSettings();
-        Backendless.initApp(this, backendlessSettings.applicationID, backendlessSettings.androidApiKey);
-
         ivSignIn = findViewById(R.id.iv_sign_in);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         btnSignIn = findViewById(R.id.btn_dont_have_sign_up);
+        firebaseAuth = FirebaseAuth.getInstance();
+
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,10 +62,23 @@ public class SignIn extends AppCompatActivity {
                     etEmail.setText("");
                     etPassword.setText("");
                 }
+                else if (password.length() <= 8){
+                    Toast.makeText(SignIn.this, "Your password less than 8 character", Toast.LENGTH_SHORT).show();
+                }
                 else{
-                    LoadingCallback<BackendlessUser> loginCallback = createLoginCallback();
-                    loginCallback.showLoading();
-                    loginUser(email, password, loginCallback);
+                    firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                Intent intent = new Intent(SignIn.this, Dashboard.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else{
+                                Toast.makeText(SignIn.this, "Username or Password is Invalid", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -75,19 +88,4 @@ public class SignIn extends AppCompatActivity {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
-    public void loginUser(String email, String password, AsyncCallback<BackendlessUser> loginCallback){
-        Backendless.UserService.login(email, password, loginCallback);
-    }
-
-    public LoadingCallback<BackendlessUser> createLoginCallback(){
-        return new LoadingCallback<BackendlessUser>(this, getString(R.string.loading_login)){
-            @Override
-            public void handleResponse(BackendlessUser response) {
-                super.handleResponse(response);
-                Intent intent = new Intent(SignIn.this, Dashboard.class);
-                startActivity(intent);
-                finish();
-            }
-        };
-    }
 }

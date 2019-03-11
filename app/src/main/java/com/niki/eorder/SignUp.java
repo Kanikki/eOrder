@@ -58,9 +58,6 @@ public class SignUp extends AppCompatActivity {
                     etFullName.setText("");
                     etPassword.setText("");
                 }
-                else if (password.length() <= 8){
-                    Toast.makeText(SignUp.this, "Your password less than 8 character", Toast.LENGTH_SHORT).show();
-                }
                 else{
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override

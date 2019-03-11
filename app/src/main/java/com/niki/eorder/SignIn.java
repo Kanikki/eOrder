@@ -51,7 +51,7 @@ public class SignIn extends AppCompatActivity {
         ivSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString();
+                final String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
                 if (email.equals("") || password.equals("")){
@@ -61,9 +61,6 @@ public class SignIn extends AppCompatActivity {
                     Toast.makeText(SignIn.this, "Email invalid!", Toast.LENGTH_SHORT).show();
                     etEmail.setText("");
                     etPassword.setText("");
-                }
-                else if (password.length() <= 8){
-                    Toast.makeText(SignIn.this, "Your password less than 8 character", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

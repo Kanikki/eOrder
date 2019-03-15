@@ -1,9 +1,11 @@
 package com.niki.eorder;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 
 import com.google.zxing.Result;
 
@@ -11,13 +13,17 @@ import org.json.JSONObject;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class QrScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler{
+public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView scannerView;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        // disable action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+        
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qr_scanner);
 
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
@@ -43,7 +49,7 @@ public class QrScanner extends AppCompatActivity implements ZXingScannerView.Res
             String location = object.getString("location");
             String seatNumber = object.getString("seatNumber");
 
-            Intent intent = new Intent(QrScanner.this, OrderMenu.class);
+            Intent intent = new Intent(QrCodeScanner.this, OrderMenu.class);
             intent.putExtra("location", location);
             intent.putExtra("seatNumber", seatNumber);
             startActivity(intent);

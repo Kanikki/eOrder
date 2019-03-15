@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,7 @@ public class SignIn extends AppCompatActivity {
     private ImageView ivSignIn;
     private EditText etEmail, etPassword;
     private FirebaseAuth firebaseAuth;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,8 @@ public class SignIn extends AppCompatActivity {
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         btnSignIn = findViewById(R.id.btn_dont_have_sign_up);
+        progressBar = findViewById(R.id.pb_sign_in);
         firebaseAuth = FirebaseAuth.getInstance();
-
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +53,8 @@ public class SignIn extends AppCompatActivity {
         ivSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
+
                 final String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
@@ -67,11 +71,13 @@ public class SignIn extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
+                                progressBar.setVisibility(View.GONE);
                                 Intent intent = new Intent(SignIn.this, Dashboard.class);
                                 startActivity(intent);
                                 finish();
                             }
                             else{
+                                progressBar.setVisibility(View.GONE);
                                 Toast.makeText(SignIn.this, "Username or Password is Invalid", Toast.LENGTH_SHORT).show();
                             }
                         }

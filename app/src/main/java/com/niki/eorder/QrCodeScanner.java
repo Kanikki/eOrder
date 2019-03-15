@@ -22,7 +22,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
         // disable action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        
+
         super.onCreate(savedInstanceState);
 
         scannerView = new ZXingScannerView(this);

@@ -15,21 +15,22 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.niki.eorder.adapter.StandAdapter;
+import com.niki.eorder.adapter.MenuAdapter;
+import com.niki.eorder.model.Menu;
 import com.niki.eorder.model.Stand;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StandList extends AppCompatActivity {
+public class MenuList extends AppCompatActivity {
     private DataPassing dataPassing = DataPassing.getInstance();
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
-    private StandAdapter adapter;
+    private MenuAdapter adapter;
     private TextView tvLocation, tvSeatNumber;
     private FirebaseFirestore db;
-    private ArrayList<Stand> stands;
-    private String path = "", location = "", seatNumber = "";
+    private ArrayList<Menu> menus;
+    private String location = "", standID = "", path = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,20 +39,22 @@ public class StandList extends AppCompatActivity {
         actionBar.hide();
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stand_list);
+        setContentView(R.layout.activity_menu_list);
 
-        progressBar = findViewById(R.id.pb_stand_list);
-        recyclerView = findViewById(R.id.rv_stand_list);
+        progressBar = findViewById(R.id.pb_menu_list);
+        recyclerView = findViewById(R.id.rv_menu_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        stands = new ArrayList<>();
-        adapter = new StandAdapter(StandList.this, stands);
+        menus = new ArrayList<>();
+        adapter = new MenuAdapter(MenuList.this, menus);
         recyclerView.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
+
         location = dataPassing.getLocation();
+        standID = dataPassing.getStandID();
 
         // get data from fire store
-        path = "foodcourt/" + location + "/stand_list";
+        path = "foodcourt/" + location + "/stand_list/" + standID + "/menu";
         db.collection(path).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -59,20 +62,19 @@ public class StandList extends AppCompatActivity {
                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
 
                     for (DocumentSnapshot d : list){
-                        Stand f = d.toObject(Stand.class);
+                        Menu f = d.toObject(Menu.class);
                         f.setID(d.getId());
-                        stands.add(f);
+                        menus.add(f);
                     }
                     progressBar.setVisibility(View.GONE);
                     adapter.notifyDataSetChanged();
                 }
                 else{
-                    Toast.makeText(StandList.this, "Aw, Snap!, please try again in a few minutes", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MenuList.this, "Aw, Snap!, please try again in a few minutes", Toast.LENGTH_SHORT).show();
                 }
             }
 
         });
 
-       // Toast.makeText(StandList.this, stands.get(0).getName(), Toast.LENGTH_SHORT).show();
     }
 }

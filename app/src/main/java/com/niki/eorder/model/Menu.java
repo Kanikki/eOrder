@@ -1,9 +1,9 @@
 package com.niki.eorder.model;
 
-public class Stand {
+public class Menu {
     private String ID;
     private String name;
-    private String description;
+    private int price;
 
     public String getID() {
         return ID;
@@ -13,12 +13,12 @@ public class Stand {
         this.ID = ID;
     }
 
-    public String getDescription() {
-        return description;
+    public int getPrice() {
+        return price;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getName() {

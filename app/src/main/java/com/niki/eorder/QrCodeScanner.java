@@ -1,6 +1,9 @@
 package com.niki.eorder;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,8 +15,10 @@ import javax.xml.transform.Result;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
-
+    private DataPassing dataPassing = DataPassing.getInstance();
     private ZXingScannerView scannerView;
+    private static int MY_REQUEST_CODE = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,13 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_qr_code_scanner);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_REQUEST_CODE);
+            }
+        }
+
 
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
@@ -49,8 +61,8 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
             String seatNumber = object.getString("seatNumber");
 
             Intent intent = new Intent(QrCodeScanner.this, StandList.class);
-            intent.putExtra("location", location);
-            intent.putExtra("seatNumber", seatNumber);
+            dataPassing.setLocation(location);
+            dataPassing.setSeatNumber(Integer.parseInt(seatNumber));
             startActivity(intent);
             finish();
         } catch (Exception e){

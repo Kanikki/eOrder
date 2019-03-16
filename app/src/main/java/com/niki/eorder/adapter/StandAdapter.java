@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.niki.eorder.R;
 import com.niki.eorder.model.Stand;
@@ -34,7 +35,7 @@ public class StandAdapter extends RecyclerView.Adapter<StandAdapter.StandViewHol
     @Override
     public void onBindViewHolder(@NonNull StandViewHolder holder, int position) {
         holder.tvName.setText(standList.get(position).getName());
-        holder.tvDescription.setText(standList.get(position).getDesctiption());
+        holder.tvDescription.setText(standList.get(position).getDescription());
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

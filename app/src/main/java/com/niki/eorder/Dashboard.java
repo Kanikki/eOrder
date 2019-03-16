@@ -49,7 +49,7 @@ public class Dashboard extends AppCompatActivity {
         cvOrderMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Dashboard.this, QrCodeScanner.class);
+                Intent intent = new Intent(Dashboard.this, StandList.class);
                 startActivity(intent);
             }
         });

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,7 @@ public class SignUp extends AppCompatActivity {
     private EditText etFullName, etEmail, etPassword;
     private ImageView ivSignUp;
     private FirebaseAuth firebaseAuth;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,12 @@ public class SignUp extends AppCompatActivity {
         ivSignUp = findViewById(R.id.iv_sign_up);
         firebaseAuth = FirebaseAuth.getInstance();
 
+        // progress bar
+        relativeLayout = findViewById(R.id.rl_sign_in);
+
+        // set progress bar in front of all layout
+        relativeLayout.setZ(999);
+
 
         ivSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +55,6 @@ public class SignUp extends AppCompatActivity {
                 String fullName = etFullName.getText().toString();
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
-
 
                 if (fullName.equals("") || email.equals("") || password.equals("")){
                     Toast.makeText(SignUp.this, "All forms must be filled!", Toast.LENGTH_SHORT).show();
@@ -59,16 +66,19 @@ public class SignUp extends AppCompatActivity {
                     etPassword.setText("");
                 }
                 else{
+                    relativeLayout.setVisibility(View.VISIBLE);
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
+                                relativeLayout.setVisibility(View.INVISIBLE);
                                 Intent intent = new Intent(SignUp.this, Home.class);
                                 startActivity(intent);
                                 Toast.makeText(SignUp.this, "Thankyou for registering eOrder", Toast.LENGTH_SHORT).show();
                                 finish();
                             }
                             else{
+                                relativeLayout.setVisibility(View.INVISIBLE);
                                 Toast.makeText(SignUp.this, "Email or Password is wrong", Toast.LENGTH_SHORT).show();
                             }
                         }

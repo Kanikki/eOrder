@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,7 +24,7 @@ public class SignIn extends AppCompatActivity {
     private ImageView ivSignIn;
     private EditText etEmail, etPassword;
     private FirebaseAuth firebaseAuth;
-    private ProgressBar progressBar;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,13 @@ public class SignIn extends AppCompatActivity {
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         btnSignIn = findViewById(R.id.btn_dont_have_sign_up);
-        progressBar = findViewById(R.id.pb_sign_in);
         firebaseAuth = FirebaseAuth.getInstance();
+
+        // progress bar
+        relativeLayout = findViewById(R.id.rl_sign_in);
+
+        // set progress bar in front of all layout
+        relativeLayout.setZ(999);
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,8 +59,6 @@ public class SignIn extends AppCompatActivity {
         ivSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
-
                 final String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
@@ -67,17 +71,18 @@ public class SignIn extends AppCompatActivity {
                     etPassword.setText("");
                 }
                 else{
+                    relativeLayout.setVisibility(View.VISIBLE);
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                progressBar.setVisibility(View.GONE);
+                                relativeLayout.setVisibility(View.INVISIBLE);
                                 Intent intent = new Intent(SignIn.this, Dashboard.class);
                                 startActivity(intent);
                                 finish();
                             }
                             else{
-                                progressBar.setVisibility(View.GONE);
+                                relativeLayout.setVisibility(View.INVISIBLE);
                                 Toast.makeText(SignIn.this, "Username or Password is Invalid", Toast.LENGTH_SHORT).show();
                             }
                         }

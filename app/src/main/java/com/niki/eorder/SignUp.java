@@ -43,7 +43,7 @@ public class SignUp extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         // progress bar
-        relativeLayout = findViewById(R.id.rl_sign_in);
+        relativeLayout = findViewById(R.id.rl_sign_up);
 
         // set progress bar in front of all layout
         relativeLayout.setZ(999);

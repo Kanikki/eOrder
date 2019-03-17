@@ -61,34 +61,6 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:src="#000"/>
-             <LinearLayout
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:orientation="horizontal">
-                 <Button
-                     android:id="@+id/btn_min_qty"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:text="-"
-                     android:textSize="18sp"
-                     android:minWidth="0dp"
-                     android:minHeight="0dp"/>
-                 <TextView
-                     android:id="@+id/tv_qty"
-                     android:layout_width="40dp"
-                     android:layout_height="wrap_content"
-                     android:text="7"
-                     android:gravity="center"
-                     android:textSize="20sp"/>
-                 <Button
-                     android:id="@+id/btn_add_qty"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:text="+"
-                     android:textSize="18sp"
-                     android:minHeight="0dp"
-                     android:minWidth="0dp"/>
-             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

@@ -19,7 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.niki.eorder.adapter.MenuAdapter;
 import com.niki.eorder.model.Cart;
 import com.niki.eorder.model.Menu;
-import com.niki.eorder.model.Stand;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +50,7 @@ public class MenuList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         menus = new ArrayList<>();
         adapter = new MenuAdapter(MenuList.this, menus);
+
         recyclerView.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
@@ -75,13 +76,13 @@ public class MenuList extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(MenuList.this, "Aw, Snap!, please try again in a few minutes", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MenuList.this, Dashboard.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
-
         });
-
         fab.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 cartList = adapter.getCartItem();
@@ -89,18 +90,14 @@ public class MenuList extends AppCompatActivity {
                     Toast.makeText(MenuList.this, "Cart is empty", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Intent intent = new Intent(MenuList.this, OrderList.class);
+                    Intent intent = new Intent(MenuList.this,  OrderList.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("dataCart", cartList);
                     intent.putExtras(bundle);
                     startActivity(intent);
-
-
+                    finish();
                 }
-
-
             }
         });
-
     }
 }

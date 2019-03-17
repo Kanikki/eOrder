@@ -1,6 +1,8 @@
 package com.niki.eorder.model;
 
-public class Cart {
+import java.io.Serializable;
+
+public class Cart implements Serializable {
     private String ID;
     private String name;
     private int qty;

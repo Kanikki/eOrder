@@ -1,6 +1,7 @@
 package com.niki.eorder;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.niki.eorder.adapter.MenuAdapter;
+import com.niki.eorder.model.Cart;
 import com.niki.eorder.model.Menu;
 import com.niki.eorder.model.Stand;
 
@@ -23,14 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuList extends AppCompatActivity {
+    private FloatingActionButton fab;
     private DataPassing dataPassing = DataPassing.getInstance();
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private MenuAdapter adapter;
-    private TextView tvLocation, tvSeatNumber;
     private FirebaseFirestore db;
     private ArrayList<Menu> menus;
     private String location = "", standID = "", path = "";
+    private ArrayList<Cart> cartList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class MenuList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_list);
 
+        fab = findViewById(R.id.fab_order_now);
         progressBar = findViewById(R.id.pb_menu_list);
         recyclerView = findViewById(R.id.rv_menu_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -74,6 +78,28 @@ public class MenuList extends AppCompatActivity {
                 }
             }
 
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                cartList = adapter.getCartItem();
+                if (cartList.isEmpty()){
+                    Toast.makeText(MenuList.this, "Cart is empty", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent(MenuList.this, OrderList.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("dataCart", cartList);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+
+                }
+
+
+            }
         });
 
     }

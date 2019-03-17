@@ -24,6 +24,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     public interface OnItemClickListener{
         void onDeleteClick(int position);
+        void onClickButton();
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -64,6 +65,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                     orderViewHolder.btnMin.setVisibility(View.VISIBLE);
                     setCardPriceText(i, orderViewHolder);
                 }
+
+                if (listener != null){
+                    listener.onClickButton();
+                }
             }
         });
 
@@ -73,6 +78,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 orderViewHolder.btnMin.setVisibility(View.VISIBLE);
                 cartList.get(i).setQty(cartList.get(i).getQty() + 1);
                 setCardPriceText(i, orderViewHolder);
+
+                if (listener != null){
+                    listener.onClickButton();
+                }
             }
         });
 
@@ -85,7 +94,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                         listener.onDeleteClick(position);
                     }
                 }
-
             }
         });
     }

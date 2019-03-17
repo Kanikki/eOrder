@@ -1,9 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Payment">
+    tools:context=".Payment"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Payment"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"/>
+    <TextView
+        android:id="@+id/tv_payment_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PRICE TO PAY"
+        android:layout_gravity="center"
+        android:textSize="50sp"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Transfer to this BCA Account"
+        android:textSize="20dp"/>
+    <TextView
+        android:textSize="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="eOrder"
+        android:layout_gravity="center"/>
+    <TextView
+        android:textSize="22sp"
+        android:text="3021-595-845"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Transaction will be terminated in:"/>
+    <TextView
+        android:id="@+id/tv_payment_timer"
+        android:textSize="40sp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"/>
+
+    <Button
+        android:id="@+id/btn_confirm_payment"
+        android:layout_marginTop="30dp"
+        android:text="Confirm Payment"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"/>
+</LinearLayout>

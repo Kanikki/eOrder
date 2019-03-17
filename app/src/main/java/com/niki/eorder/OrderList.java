@@ -1,6 +1,7 @@
 package com.niki.eorder;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,11 +45,6 @@ public class OrderList extends AppCompatActivity {
         adapter = new OrderAdapter(OrderList.this, cartList);
         recyclerView.setAdapter(adapter);
 
-        total = adapter.getTotalPrice();
-        tax = total / 10;
-        fee = 100;
-        grandTotal = total + tax + fee;
-
         tvTotal = findViewById(R.id.tv_order_total);
         tvTax = findViewById(R.id.tv_order_tax);
         tvFee = findViewById(R.id.tv_order_fee);
@@ -56,15 +52,21 @@ public class OrderList extends AppCompatActivity {
         btnOrder = findViewById(R.id.btn_confirm);
         btnCancel = findViewById(R.id.btn_cancel);
 
-        tvTotal.setText("Total: IDR " + String.valueOf(total));
-        tvTax.setText("Tax(10%): IDR " + String.valueOf(tax));
-        tvFee.setText("Admin Fee: IDR " + String.valueOf(fee));
-        tvGrandTotal.setText("Grand Total : IDR " + String.valueOf(grandTotal));
+        setItemPriceView();
 
         adapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
             @Override
             public void onDeleteClick(int position) {
                 removeItem(position);
+                if (total == 0){
+                    btnOrder.setBackgroundColor(Color.parseColor("#696969"));
+                    btnOrder.setClickable(false);
+                }
+            }
+
+            @Override
+            public void onClickButton() {
+                setItemPriceView();
             }
         });
 
@@ -72,7 +74,7 @@ public class OrderList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OrderList.this, Payment.class);
-                // intent.putExtra("paymentPrice", grandTotal);
+                intent.putExtra("paymentPrice", grandTotal);
                 startActivity(intent);
                 finish();
             }
@@ -89,9 +91,23 @@ public class OrderList extends AppCompatActivity {
 
     }
 
-    public void removeItem(int position){
+
+    private void setItemPriceView(){
+        total = adapter.getTotalPrice();
+        tax = total / 10;
+        fee = 100;
+        grandTotal = total + tax + fee;
+
+        tvTotal.setText("Total: IDR " + String.valueOf(total));
+        tvTax.setText("Tax(10%): IDR " + String.valueOf(tax));
+        tvFee.setText("Admin Fee: IDR " + String.valueOf(fee));
+        tvGrandTotal.setText("Grand Total : IDR " + String.valueOf(grandTotal));
+    }
+
+    private void removeItem(int position){
         cartList.remove(position);
         adapter.notifyItemRemoved(position);
+        setItemPriceView();
     }
 
     @Override

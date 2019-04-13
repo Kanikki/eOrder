@@ -2,6 +2,7 @@ package com.niki.eorder.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import com.niki.eorder.model.Menu;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> {
     private Context context;

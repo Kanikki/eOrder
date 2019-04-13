@@ -14,9 +14,15 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SignUp extends AppCompatActivity {
@@ -25,6 +31,7 @@ public class SignUp extends AppCompatActivity {
     private ImageView ivSignUp;
     private FirebaseAuth firebaseAuth;
     private RelativeLayout relativeLayout;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,8 @@ public class SignUp extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+
 
         etFullName = findViewById(R.id.et_full_name);
         etEmail = findViewById(R.id.et_email);
@@ -52,8 +61,8 @@ public class SignUp extends AppCompatActivity {
         ivSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String fullName = etFullName.getText().toString();
-                String email = etEmail.getText().toString();
+                final String fullName = etFullName.getText().toString();
+                final String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
                 if (fullName.equals("") || email.equals("") || password.equals("")){
@@ -72,10 +81,23 @@ public class SignUp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 relativeLayout.setVisibility(View.INVISIBLE);
-                                Intent intent = new Intent(SignUp.this, Home.class);
-                                startActivity(intent);
-                                Toast.makeText(SignUp.this, "Thankyou for registering eOrder", Toast.LENGTH_SHORT).show();
-                                finish();
+                                Map<String, Object> docData = new HashMap<>();
+                                docData.put("email", email);
+                                docData.put("name", fullName);
+                                docData.put("eBalance", 0);
+
+                                String uid = firebaseAuth.getUid();
+
+                                DocumentReference ref = db.collection("users").document(uid);
+                                ref.set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Intent intent = new Intent(SignUp.this, Home.class);
+                                        startActivity(intent);
+                                        Toast.makeText(SignUp.this, "Thank You for registering eOrder", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                });
                             }
                             else{
                                 relativeLayout.setVisibility(View.INVISIBLE);

@@ -1,15 +1,15 @@
 package com.niki.eorder.model;
 
-public class User {
-    private int eBalance;
+public class Users {
+    private long eBalance;
     private String email;
     private String name;
 
-    public int geteBalance() {
+    public long geteBalance() {
         return eBalance;
     }
 
-    public void seteBalance(int eBalance) {
+    public void seteBalance(long eBalance) {
         this.eBalance = eBalance;
     }
 

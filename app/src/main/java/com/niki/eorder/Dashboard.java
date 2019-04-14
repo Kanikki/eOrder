@@ -12,18 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.niki.eorder.model.User;
-
-import java.util.List;
+import com.niki.eorder.model.Users;
 
 public class Dashboard extends AppCompatActivity {
     private Button btnSignOut;
@@ -31,7 +26,8 @@ public class Dashboard extends AppCompatActivity {
     private TextView tvUserEmail, tvUserName, tvUserEbalance;
     private CardView cvOrderMenu;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private User user = new User();
+    private String name, email;
+    private long eBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,30 +38,6 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-
-        DocumentReference ref = db.collection("users").document(firebaseAuth.getUid());
-        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.i("LOGGER", "name " + documentSnapshot.getString("name"));
-                Log.i("LOGGER", "email " + documentSnapshot.getString("email"));
-                Log.i("LOGGER", "eBalance " + documentSnapshot.getString("eBalance").toString());
-
-                user = documentSnapshot.toObject(User.class);
-                Toast.makeText(Dashboard.this, "Success", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Dashboard.this, "Error getting data, please try again", Toast.LENGTH_SHORT).show();
-                // firebaseAuth.signOut();
-                Intent intent = new Intent(getApplicationContext(), Home.class);
-                startActivity(intent);
-                finish();
-
-            }
-        });
-
         btnSignOut = findViewById(R.id.btn_sign_out);
         tvUserEmail = findViewById(R.id.tv_user_email);
         tvUserName = findViewById(R.id.tv_user_name);
@@ -73,13 +45,34 @@ public class Dashboard extends AppCompatActivity {
         cvOrderMenu = findViewById(R.id.cv_order_menu);
 
 
-        String email = user.getEmail();
-        String name = user.getName();
-        int eBalance = user.geteBalance();
+        DocumentReference ref = db.collection("users").document(firebaseAuth.getUid());
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("LOGGER", "name " + documentSnapshot.getString("name"));
+                Log.d("LOGGER", "email " + documentSnapshot.getString("email"));
+                Log.d("LOGGER", "eBalance " + documentSnapshot.getLong("eBalance"));
 
-        tvUserEmail.setText(email);
-        tvUserName.setText("Welcome back, " + name);
-        tvUserEbalance.setText("Your eBalance : IDR " + eBalance);
+                name = documentSnapshot.getString("name");
+                email = documentSnapshot.getString("email");
+                eBalance = documentSnapshot.getLong("eBalance");
+
+                tvUserEmail.setText(email);
+                tvUserName.setText("Welcome back, " + name);
+                tvUserEbalance.setText("Your eBalance : IDR " + eBalance);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Dashboard.this, "Error getting data, please try again", Toast.LENGTH_SHORT).show();
+                firebaseAuth.signOut();
+                Intent intent = new Intent(getApplicationContext(), Home.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
 
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override

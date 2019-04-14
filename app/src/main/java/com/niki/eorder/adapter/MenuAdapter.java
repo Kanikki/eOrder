@@ -54,7 +54,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
                 Toast.makeText(context, "Success add this menu to your order list", Toast.LENGTH_SHORT).show();
                 menuViewHolder.cardView.setBackgroundColor(Color.parseColor("#696969"));
-                menuViewHolder.cardView.setClickable(false);
+
             }
         });
 

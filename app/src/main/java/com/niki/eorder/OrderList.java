@@ -2,6 +2,7 @@ package com.niki.eorder;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.niki.eorder.adapter.OrderAdapter;
 import com.niki.eorder.model.Cart;
 
@@ -24,6 +31,9 @@ public class OrderList extends AppCompatActivity {
     private Button btnOrder, btnCancel;
     private OrderAdapter adapter;
     private int total = 0, fee = 100, tax = 0, grandTotal;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private boolean canPay = true;
     ArrayList<Cart> cartList;
 
 
@@ -35,6 +45,8 @@ public class OrderList extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
+
+        final DocumentReference ref = db.collection("users").document(firebaseAuth.getUid());
 
         Bundle bundle = getIntent().getExtras();
         cartList = (ArrayList<Cart>) bundle.getSerializable("dataCart");
@@ -73,10 +85,39 @@ public class OrderList extends AppCompatActivity {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderList.this, Payment.class);
-                intent.putExtra("paymentPrice", grandTotal);
-                startActivity(intent);
-                finish();
+
+                ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        long eBalance = documentSnapshot.getLong("eBalance");
+
+                        if (eBalance - grandTotal < 0) canPay = false;
+                        else {
+                            ref.update("eBalance", eBalance - grandTotal);
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error getting data, please try again", Toast.LENGTH_SHORT).show();
+                        firebaseAuth.signOut();
+                        Intent intent = new Intent(getApplicationContext(), Home.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+                if (canPay){
+                    Intent intent = new Intent(OrderList.this, Payment.class);
+                    intent.putExtra("paymentPrice", grandTotal);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Toast.makeText(OrderList.this, "Sorry, your eBalance is not enough to process payment", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -90,7 +131,6 @@ public class OrderList extends AppCompatActivity {
         });
 
     }
-
 
     private void setItemPriceView(){
         total = adapter.getTotalPrice();

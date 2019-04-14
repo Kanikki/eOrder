@@ -26,20 +26,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Transfer to this BCA Account"
+        android:text="Pay using eBalance"
         android:textSize="20dp"/>
-    <TextView
-        android:textSize="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="eOrder"
-        android:layout_gravity="center"/>
-    <TextView
-        android:textSize="22sp"
-        android:text="3021-595-845"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+
     <TextView
         android:layout_marginTop="10dp"
         android:textSize="20sp"

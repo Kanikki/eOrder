@@ -13,7 +13,6 @@ import android.widget.Toast;
 public class Payment extends AppCompatActivity {
     private TextView tvPrice, tvTimer;
     private long timeLeftMilliseconds = 1050000;
-    private boolean pay = false;
 
 
     @Override

@@ -23,6 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.niki.eorder.adapter.OrderAdapter;
 import com.niki.eorder.model.Cart;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class OrderList extends AppCompatActivity {
@@ -138,10 +140,13 @@ public class OrderList extends AppCompatActivity {
         fee = 100;
         grandTotal = total + tax + fee;
 
-        tvTotal.setText("Total: IDR " + String.valueOf(total));
-        tvTax.setText("Tax(10%): IDR " + String.valueOf(tax));
-        tvFee.setText("Admin Fee: IDR " + String.valueOf(fee));
-        tvGrandTotal.setText("Grand Total : IDR " + String.valueOf(grandTotal));
+        Utility util = new Utility();
+
+
+        tvTotal.setText("Total: " + util.toIDR(total));
+        tvTax.setText("Tax(10%): " + util.toIDR(tax));
+        tvFee.setText("Admin Fee: " + util.toIDR(fee));
+        tvGrandTotal.setText("Grand Total : " + util.toIDR(grandTotal));
     }
 
     private void removeItem(int position){

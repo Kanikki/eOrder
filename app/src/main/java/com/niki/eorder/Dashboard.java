@@ -98,18 +98,12 @@ public class Dashboard extends AppCompatActivity{
                     eBalance = documentSnapshot.getLong("eBalance");
 
                     // set eBalance to IDR format
-                    DecimalFormat indonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
-                    DecimalFormatSymbols rupiah = new DecimalFormatSymbols();
 
-                    rupiah.setCurrencySymbol("IDR ");
-                    rupiah.setGroupingSeparator('.');
-                    indonesia.setMinimumFractionDigits(0);
-                    indonesia.setDecimalFormatSymbols(rupiah);
-
+                    Utility util = new Utility();
 
                     tvUserEmail.setText(email);
                     tvUserName.setText("Welcome back, " + name);
-                    tvUserEbalance.setText("Your eBalance : " + indonesia.format(eBalance));
+                    tvUserEbalance.setText("Your eBalance : " + util.toIDR(eBalance));
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

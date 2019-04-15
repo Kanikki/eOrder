@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.niki.eorder.R;
+import com.niki.eorder.Utility;
 import com.niki.eorder.model.Cart;
 import com.niki.eorder.model.Menu;
 
@@ -22,6 +23,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     private Context context;
     private ArrayList<Menu> menuList;
     private ArrayList<Cart> cartList;
+    private Utility util = new Utility();
 
     public MenuAdapter(Context context, ArrayList<Menu> menuList){
         this.context = context;
@@ -40,7 +42,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     public void onBindViewHolder(@NonNull final MenuViewHolder menuViewHolder, final int i) {
 
         menuViewHolder.tvName.setText(menuList.get(i).getName());
-        menuViewHolder.tvPrice.setText("IDR " + Integer.toString(menuList.get(i).getPrice()));
+        menuViewHolder.tvPrice.setText(util.toIDR(menuList.get(i).getPrice()));
         menuViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,9 +66,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
                         }
                     }
                 }
-
-                // Toast.makeText(context, "Success add this menu to your order list", Toast.LENGTH_SHORT).show();
-
             }
         });
 

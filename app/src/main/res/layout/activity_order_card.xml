@@ -65,31 +65,28 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
+                <ImageView
                     android:id="@+id/btn_min_qty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:text="-"
-                    android:textSize="18sp" />
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_expand_more_black_24dp" />
 
                 <TextView
                     android:id="@+id/tv_qty"
                     android:layout_width="40dp"
+                    android:height="40dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="1"
                     android:textSize="20sp" />
 
-                <Button
+                <ImageView
                     android:id="@+id/btn_add_qty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:text="+"
-                    android:textSize="18sp" />
+                    android:src="@drawable/ic_expand_less_black_24dp"
+                    />
             </LinearLayout>
         </LinearLayout>
 

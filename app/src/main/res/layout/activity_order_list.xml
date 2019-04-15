@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OrderList"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background">
     <android.support.v7.widget.RecyclerView
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
@@ -19,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="5dp"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="4dp"
+        app:cardBackgroundColor="@color/colorTransparent70">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,21 +36,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_order_total"
+                    android:textColor="@color/colorWhite"
                     android:text="Total"
                     android:textSize="20dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_order_tax"
+                    android:textColor="@color/colorWhite"
                     android:text="Tax(10%)"
                     android:textSize="20dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Admin fee"
+                    android:textColor="@color/colorWhite"
                     android:id="@+id/tv_order_fee"
                     android:textSize="20dp"/>
                 <TextView
+                    android:textColor="@color/colorWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Grand total"

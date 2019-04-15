@@ -1,6 +1,7 @@
 package com.niki.eorder.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.niki.eorder.R;
+import com.niki.eorder.Utility;
 import com.niki.eorder.model.Cart;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
@@ -21,6 +25,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     private ImageView imCancelOrder;
     private ArrayList<Cart> cartList;
     private OnItemClickListener listener;
+    private Utility util = new Utility();
 
     public interface OnItemClickListener{
         void onDeleteClick(int position);
@@ -50,7 +55,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public void onBindViewHolder(@NonNull final OrderViewHolder orderViewHolder, final int i) {
         orderViewHolder.tvName.setText(cartList.get(i).getName());
         orderViewHolder.tvPrice.setText(String.valueOf("Price : " + cartList.get(i).getPrice()));
-        orderViewHolder.tvSubtotal.setText("Subtotal : IDR " + cartList.get(i).getQty() * cartList.get(i).getPrice());
+        orderViewHolder.tvSubtotal.setText("Subtotal : " + util.toIDR(cartList.get(i).getQty() * cartList.get(i).getPrice()));
 
         orderViewHolder.btnMin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +104,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     private void setCardPriceText(int position, OrderViewHolder viewHolder){
+        Utility util = new Utility();
+
         viewHolder.tvQty.setText("" + cartList.get(position).getQty());
-        viewHolder.tvSubtotal.setText("Subtotal : IDR " + cartList.get(position).getQty() * cartList.get(position).getPrice());
+        viewHolder.tvSubtotal.setText("Subtotal : " + util.toIDR(cartList.get(position).getQty() * cartList.get(position).getPrice()));
     }
 
     @Override
@@ -118,7 +125,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     public class OrderViewHolder extends RecyclerView.ViewHolder{
         private TextView tvName, tvPrice,tvSubtotal, tvQty;
-        private Button btnAdd, btnMin;
+        private ImageView btnAdd, btnMin;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);

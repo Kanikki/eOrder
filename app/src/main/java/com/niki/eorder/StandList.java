@@ -72,7 +72,5 @@ public class StandList extends AppCompatActivity {
             }
 
         });
-
-       // Toast.makeText(StandList.this, stands.get(0).getName(), Toast.LENGTH_SHORT).show();
     }
 }

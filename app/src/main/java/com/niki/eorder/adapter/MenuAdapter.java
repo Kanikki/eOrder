@@ -44,16 +44,28 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
         menuViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cart cart = new Cart();
+                if (!menuViewHolder.hasOrder){
+                    Cart cart = new Cart();
+                    menuViewHolder.hasOrder = true;
+                    cart.setID(menuList.get(i).getID());
+                    cart.setName(menuList.get(i).getName());
+                    cart.setPrice(menuList.get(i).getPrice());
+                    cart.setQty(1);
+                    cartList.add(cart);
+                    menuViewHolder.cardView.setBackgroundColor(Color.parseColor("#696969"));
+                }
+                else {
+                    menuViewHolder.hasOrder = false;
+                    menuViewHolder.cardView.setBackgroundColor(Color.parseColor("#ffffff"));
+                    for (int j = 0; j < cartList.size(); j++){
+                        if (cartList.get(j).getID() == menuList.get(i).getID()){
+                            cartList.remove(j);
+                            break;
+                        }
+                    }
+                }
 
-                cart.setID(menuList.get(i).getID());
-                cart.setName(menuList.get(i).getName());
-                cart.setPrice(menuList.get(i).getPrice());
-                cart.setQty(1);
-                cartList.add(cart);
-
-                Toast.makeText(context, "Success add this menu to your order list", Toast.LENGTH_SHORT).show();
-                menuViewHolder.cardView.setBackgroundColor(Color.parseColor("#696969"));
+                // Toast.makeText(context, "Success add this menu to your order list", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -73,6 +85,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     public class MenuViewHolder extends RecyclerView.ViewHolder{
         private TextView tvName, tvPrice;
         private CardView cardView;
+        private boolean hasOrder = false;
 
         public MenuViewHolder(@NonNull View itemView) {
             super(itemView);

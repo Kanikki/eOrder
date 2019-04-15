@@ -58,7 +58,7 @@ public class MenuList extends AppCompatActivity {
         location = dataPassing.getLocation();
         standID = dataPassing.getStandID();
 
-        // get data from fire store
+        // get data from firestore menu
         path = "foodcourt/" + location + "/stand_list/" + standID + "/menu";
         db.collection(path).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override

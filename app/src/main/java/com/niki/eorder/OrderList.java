@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,8 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.niki.eorder.adapter.OrderAdapter;
 import com.niki.eorder.model.Cart;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class OrderList extends AppCompatActivity {
@@ -92,10 +91,23 @@ public class OrderList extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         long eBalance = documentSnapshot.getLong("eBalance");
+                        canPay = true;
+                        Log.d("LOGGER" , "eBalance in order : " + eBalance);
+                        Log.d("LOGGER","remaining eBalance in order : " + (eBalance - grandTotal));
 
-                        if (eBalance - grandTotal < 0) canPay = false;
+                        if (eBalance - grandTotal < 0){
+                            canPay = false;
+                        }
+                        Log.d("LOGGER", "Can pay status : " + canPay);
+
+                        if (canPay){
+                            Intent intent = new Intent(OrderList.this, Payment.class);
+                            intent.putExtra("paymentPrice", grandTotal);
+                            startActivity(intent);
+                            finish();
+                        }
                         else {
-                            ref.update("eBalance", eBalance - grandTotal);
+                            Toast.makeText(OrderList.this, "Sorry, your eBalance is not enough to process payment", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -109,17 +121,6 @@ public class OrderList extends AppCompatActivity {
                         finish();
                     }
                 });
-
-                if (canPay){
-                    Intent intent = new Intent(OrderList.this, Payment.class);
-                    intent.putExtra("paymentPrice", grandTotal);
-                    startActivity(intent);
-                    finish();
-                }
-                else {
-                    Toast.makeText(OrderList.this, "Sorry, your eBalance is not enough to process payment", Toast.LENGTH_SHORT).show();
-                }
-
             }
         });
 

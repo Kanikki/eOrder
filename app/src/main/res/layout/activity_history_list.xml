@@ -8,7 +8,7 @@
     android:background="@drawable/background">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_menu_list"
+        android:id="@+id/rv_history_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

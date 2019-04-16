@@ -1,10 +1,23 @@
 package com.niki.eorder;
 
+import com.niki.eorder.model.Cart;
+
+import java.util.ArrayList;
+
 public class DataPassing {
     private static DataPassing instance;
     private String location;
     private String standID;
     private int seatNumber;
+    private ArrayList<Cart> carts = new ArrayList<>();
+
+    public ArrayList<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(ArrayList<Cart> carts) {
+        this.carts = carts;
+    }
 
     public String getLocation() {
         return location;

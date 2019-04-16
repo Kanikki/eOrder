@@ -10,10 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.niki.eorder.model.Cart;
+
+import java.util.ArrayList;
+
 public class Payment extends AppCompatActivity {
     private TextView tvPrice, tvTimer;
     private long timeLeftMilliseconds = 1050000;
-
+    private Utility util = new Utility();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +32,9 @@ public class Payment extends AppCompatActivity {
         tvTimer = findViewById(R.id.tv_payment_timer);
 
         Intent intent = getIntent();
-        int price = intent.getIntExtra("paymentPrice", 0);
+        final int price = intent.getIntExtra("paymentPrice", 0);
 
-        tvPrice.setText("IDR" + String.valueOf(price));
+        tvPrice.setText(util.toIDR(price));
 
         Button btnConfirmPayment = findViewById(R.id.btn_confirm_payment);
         btnConfirmPayment.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +42,19 @@ public class Payment extends AppCompatActivity {
             public void onClick(View v) {
                 countDownTimer.cancel();
                 Intent intent = new Intent(Payment.this, PaymentReceipt.class);
+                intent.putExtra("paymentPrice", price);
                 startActivity(intent);
+                finish();
+            }
+        });
+
+        Button btnCancelPayment = findViewById(R.id.btn_cancel_payment);
+        btnCancelPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Payment.this, Dashboard.class);
+                startActivity(intent);
+                Toast.makeText(Payment.this, "Transaction has been cancelled", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

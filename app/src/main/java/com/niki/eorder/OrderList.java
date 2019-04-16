@@ -35,7 +35,8 @@ public class OrderList extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private boolean canPay = true;
-    ArrayList<Cart> cartList;
+    private ArrayList<Cart> cartList;
+    private DataPassing dataPassing = DataPassing.getInstance();
 
 
     @Override
@@ -49,7 +50,7 @@ public class OrderList extends AppCompatActivity {
 
         final DocumentReference ref = db.collection("users").document(firebaseAuth.getUid());
 
-        Bundle bundle = getIntent().getExtras();
+        final Bundle bundle = getIntent().getExtras();
         cartList = (ArrayList<Cart>) bundle.getSerializable("dataCart");
 
         recyclerView = findViewById(R.id.rv_order_list);
@@ -103,6 +104,7 @@ public class OrderList extends AppCompatActivity {
                         if (canPay){
                             Intent intent = new Intent(OrderList.this, Payment.class);
                             intent.putExtra("paymentPrice", grandTotal);
+                            dataPassing.setCarts(cartList);
                             startActivity(intent);
                             finish();
                         }

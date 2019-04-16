@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,10 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Payment"
+        android:textColor="@color/colorWhite"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:textSize="30sp"/>
     <TextView
+        android:textColor="@color/colorWhite"
         android:id="@+id/tv_payment_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,21 +25,26 @@
         android:layout_gravity="center"
         android:textSize="50sp"
         android:layout_marginTop="20dp"/>
+
     <TextView
+        android:textColor="@color/colorWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Pay using eBalance"
+        android:text="Payment using eBalance"
         android:textSize="20dp"/>
 
     <TextView
+        android:textColor="@color/colorWhite"
         android:layout_marginTop="10dp"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transaction will be terminated in:"/>
+        android:text="Transaction will be cancelled in:"/>
+    android:textColor="@color/colorWhite"
     <TextView
+        android:textColor="@color/colorWhite"
         android:id="@+id/tv_payment_timer"
         android:textSize="40sp"
         android:layout_marginTop="15dp"
@@ -51,7 +59,18 @@
         android:text="Confirm Payment"
         android:layout_gravity="center"
         android:padding="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"/>
+
+    <Button
+        android:id="@+id/btn_cancel_payment"
+        android:layout_marginTop="30dp"
+        android:text="cancel Payment"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
         android:textColor="@color/colorWhite"/>

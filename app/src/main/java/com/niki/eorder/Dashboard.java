@@ -17,21 +17,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.niki.eorder.model.Users;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-
-import javax.annotation.Nullable;
 
 public class Dashboard extends AppCompatActivity{
     private Button btnSignOut;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private TextView tvUserEmail, tvUserName, tvUserEbalance;
-    private CardView cvOrderMenu, cvProfile;
+    private CardView cvOrderMenu, cvProfile, cvHistory;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String name, email;
     private long eBalance;
@@ -49,6 +41,7 @@ public class Dashboard extends AppCompatActivity{
 
         cvOrderMenu = findViewById(R.id.cv_order_menu);
         cvProfile = findViewById(R.id.cv_profile);
+        cvHistory = findViewById(R.id.cv_history);
 
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +50,14 @@ public class Dashboard extends AppCompatActivity{
                 Intent intent = new Intent(Dashboard.this, Home.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        cvHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), HistoryList.class);
+                startActivity(intent);
             }
         });
 

@@ -70,8 +70,9 @@ public class PaymentReceipt extends AppCompatActivity {
         data.put("standID", dataPassing.getStandID());
         data.put("seatNumber", dataPassing.getSeatNumber());
         data.put("reservationID", reservationID);
+        data.put("locationID", dataPassing.getLocation());
 
-        DocumentReference ref = db.collection("history").document();
+        DocumentReference ref = db.collection("HistoryList").document();
         ref.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

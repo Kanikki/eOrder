@@ -1,36 +1,38 @@
 package com.niki.eorder.model;
 
+import com.google.firebase.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 public class History {
-    private String dateAndTime, reservationID, location, standID;
+    private String locationID, standID;
+    private Timestamp dateAndTime;
     private List<String> menu = new ArrayList<>();
     private int seatNumber;
-    private long totalPrice;
+    private long totalPrice, reservationID;
 
-    public String getDateAndTime() {
+    public Timestamp getDateAndTime() {
         return dateAndTime;
     }
 
-    public void setDateAndTime(String dateAndTime) {
+    public void setDateAndTime(Timestamp dateAndTime) {
         this.dateAndTime = dateAndTime;
     }
 
-    public String getReservationID() {
+    public long getReservationID() {
         return reservationID;
     }
 
-    public void setReservationID(String reservationID) {
+    public void setReservationID(long reservationID) {
         this.reservationID = reservationID;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLocationID() {
+        return locationID;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocationID(String locationID) {
+        this.locationID = locationID;
     }
 
     public String getStandID() {

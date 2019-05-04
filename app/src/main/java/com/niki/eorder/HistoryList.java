@@ -38,11 +38,12 @@ public class HistoryList extends AppCompatActivity {
         histories = new ArrayList<>();
         recyclerView = findViewById(R.id.rv_history_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         adapter = new HistoryAdapter(getApplicationContext(), histories);
+        recyclerView.setAdapter(adapter);
 
         CollectionReference historyRef = db.collection("history");
-        historyRef.whereEqualTo("userID", firebaseAuth.getUid())
-                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        historyRef.whereEqualTo("userID", firebaseAuth.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (!queryDocumentSnapshots.isEmpty()){
@@ -50,7 +51,8 @@ public class HistoryList extends AppCompatActivity {
 
                     for (DocumentSnapshot d : list){
                         History h = d.toObject(History.class);
-                        Log.i("debug history ", h.getReservationID());
+
+                        Log.d("LOG", "History date : " + h.getDateAndTime().toDate());
                         histories.add(h);
                     }
 
@@ -59,7 +61,7 @@ public class HistoryList extends AppCompatActivity {
             }
         });
 
-        Log.i("history", "" + histories.size());
+        Log.d("LOG", "History size : " + histories.size());
 
     }
 }

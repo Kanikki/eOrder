@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
 import com.niki.eorder.R;
 import com.niki.eorder.Utility;
 import com.niki.eorder.model.History;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
     private Context context;
@@ -29,15 +32,18 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     @Override
     public HistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.activity_history_card, parent);
+        View view = layoutInflater.inflate(R.layout.activity_history_card, parent, false);
         return new HistoryViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
-        holder.tvDate.setText(histories.get(position).getDateAndTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MM yyy, HH:mm");
+        Timestamp timestamp = histories.get(position).getDateAndTime();
+
+        holder.tvDate.setText(simpleDateFormat.format(timestamp.toDate()));
         holder.tvPrice.setText(util.toIDR(histories.get(position).getTotalPrice()));
-        holder.tvLocation.setText(histories.get(position).getLocation());
+        holder.tvLocation.setText(histories.get(position).getLocationID());
     }
 
     @Override

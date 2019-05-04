@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,8 +16,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.niki.eorder.model.Cart;
+
+import org.w3c.dom.Document;
 
 import java.lang.reflect.Array;
 import java.text.DateFormat;
@@ -46,7 +50,7 @@ public class PaymentReceipt extends AppCompatActivity {
         actionBar.hide();
 
         final Intent intent = getIntent();
-        long price = intent.getIntExtra("paymentPrice", 0);
+        final long price = intent.getIntExtra("paymentPrice", 0);
 
         carts = dataPassing.getCarts();
 
@@ -72,23 +76,33 @@ public class PaymentReceipt extends AppCompatActivity {
         data.put("reservationID", reservationID);
         data.put("locationID", dataPassing.getLocation());
 
-        DocumentReference ref = db.collection("HistoryList").document();
+        DocumentReference ref = db.collection("history").document();
         ref.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
+                Log.d("history status ", "success add to history");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(PaymentReceipt.this, "Something went wrong when do your payment, please try again in a few minutes", Toast.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(getApplicationContext(), Dashboard.class);
-                startActivity(intent);
+                startActivity(intent1);
                 finish();
             }
         });
 
+        DocumentReference ref1 = db.collection("users").document(firebaseAuth.getUid());
+        ref1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Long eBalance = documentSnapshot.getLong("eBalance");
 
+                DocumentReference ref2 = db.collection("users").document(firebaseAuth.getUid());
+
+                ref2.update("eBalance", eBalance - price);
+            }
+        });
 
         tvReservationID = findViewById(R.id.tv_reservation_id);
         tvSeatNumber = findViewById(R.id.tv_seat_number);

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +34,8 @@ public class HistoryList extends AppCompatActivity {
         setContentView(R.layout.activity_history_list);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        histories = new ArrayList<>();
         recyclerView = findViewById(R.id.rv_history_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new HistoryAdapter(getApplicationContext(), histories);
@@ -47,6 +50,7 @@ public class HistoryList extends AppCompatActivity {
 
                     for (DocumentSnapshot d : list){
                         History h = d.toObject(History.class);
+                        Log.i("debug history ", h.getReservationID());
                         histories.add(h);
                     }
 
@@ -55,6 +59,7 @@ public class HistoryList extends AppCompatActivity {
             }
         });
 
+        Log.i("history", "" + histories.size());
 
     }
 }

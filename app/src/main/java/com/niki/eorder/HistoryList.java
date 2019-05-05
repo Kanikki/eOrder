@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -17,8 +18,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.niki.eorder.adapter.HistoryAdapter;
 import com.niki.eorder.model.History;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HistoryList extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -26,7 +30,6 @@ public class HistoryList extends AppCompatActivity {
     private ArrayList<History> histories;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Utility util = new Utility();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +55,19 @@ public class HistoryList extends AppCompatActivity {
                     for (DocumentSnapshot d : list){
                         History h = d.toObject(History.class);
 
-                        String locationID = h.getLocationID();
-                        String temp = locationID.replaceAll("_", " ");
+                        Map<String, Integer> data = new HashMap<>();
 
-                        h.setLocationID(util.capitalizeString(temp));
+                        db.collection("foodcourt/" + h.getLocationID() + "/stand_list/" + h.getStandID() + "/" + h.getMenuOrdered().keySet()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                            }
+                        });
+
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyy, HH:mm");
+                        Timestamp timestamp = h.getDateAndTime();
+                        h.setDate(simpleDateFormat.format(timestamp.toDate()));
 
                         Log.d("LOG", "History date : " + h.getDateAndTime().toDate());
                         histories.add(h);

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HistoryList"></activity>
+        <activity android:name=".Bill"></activity>
+        <activity android:name=".HistoryList" />
         <activity android:name=".Profile" />
         <activity android:name=".PaymentReceipt" />
         <activity android:name=".Payment" />

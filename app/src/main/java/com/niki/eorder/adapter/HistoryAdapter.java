@@ -1,7 +1,9 @@
 package com.niki.eorder.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.firebase.Timestamp;
+import com.niki.eorder.Bill;
+import com.niki.eorder.DataPassing;
 import com.niki.eorder.R;
 import com.niki.eorder.Utility;
 import com.niki.eorder.model.History;
@@ -37,13 +41,28 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyy, HH:mm");
-        Timestamp timestamp = histories.get(position).getDateAndTime();
+    public void onBindViewHolder(@NonNull HistoryViewHolder holder, final int position) {
 
-        holder.tvDate.setText(simpleDateFormat.format(timestamp.toDate()));
+        holder.tvDate.setText(histories.get(position).getDate());
         holder.tvPrice.setText(util.toIDR(histories.get(position).getTotalPrice()));
-        holder.tvLocation.setText(histories.get(position).getLocationID());
+
+        String locationID = histories.get(position).getLocationID();
+        String temp = locationID.replaceAll("_", " ");
+        temp = util.capitalizeString(temp);
+
+        holder.tvLocation.setText(temp);
+
+        holder.cvHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Bill.class);
+                DataPassing dataPassing = DataPassing.getInstance();
+                dataPassing.setHistory(histories.get(position));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -53,9 +72,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     public class HistoryViewHolder extends RecyclerView.ViewHolder {
         private TextView tvLocation, tvPrice, tvDate;
+        private CardView cvHistory;
+
         public HistoryViewHolder(View itemView) {
             super(itemView);
 
+            cvHistory = itemView.findViewById(R.id.cv_history_card);
             tvDate = itemView.findViewById(R.id.tv_history_time);
             tvLocation = itemView.findViewById(R.id.tv_history_location);
             tvPrice = itemView.findViewById(R.id.tv_history_total);

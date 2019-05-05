@@ -1,15 +1,41 @@
 package com.niki.eorder.model;
 
 import com.google.firebase.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class History {
-    private String locationID, standID;
+    private String locationID, standID, date;
     private Timestamp dateAndTime;
-    private List<String> menu = new ArrayList<>();
     private int seatNumber;
     private long totalPrice, reservationID;
+    private long price;
+    private Map<String, Integer> menuOrdered = new HashMap<>();
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    public Map<String, Integer> getMenuOrdered() {
+        return menuOrdered;
+    }
+
+    public void setMenuOrdered(Map<String, Integer> menuOrdered) {
+        this.menuOrdered = menuOrdered;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public Timestamp getDateAndTime() {
         return dateAndTime;
@@ -41,14 +67,6 @@ public class History {
 
     public void setStandID(String standID) {
         this.standID = standID;
-    }
-
-    public List<String> getMenu() {
-        return menu;
-    }
-
-    public void setMenu(List<String> menu) {
-        this.menu = menu;
     }
 
     public int getSeatNumber() {

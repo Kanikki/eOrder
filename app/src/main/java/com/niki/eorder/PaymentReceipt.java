@@ -40,8 +40,6 @@ public class PaymentReceipt extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private Date date = new Date();
     private List<Cart> carts;
-    private ArrayList<String> foodID = new ArrayList<>();
-    private String [] item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,23 +52,23 @@ public class PaymentReceipt extends AppCompatActivity {
 
         carts = dataPassing.getCarts();
 
-        for (Cart cart : carts){
-            foodID.add(cart.getID());
-        }
-
-        item = foodID.toArray(new String[foodID.size()]);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_receipt);
 
         Random rand = new Random();
         int reservationID = rand.nextInt(9999) + 1;
 
+        Map<String, Integer> orderMenu = new HashMap<>();
+
+        for (Cart c : carts){
+            orderMenu.put(c.getID(), c.getQty());
+        }
+
         Map<String, Object> data = new HashMap<>();
         data.put("userID", firebaseAuth.getUid());
         data.put("totalPrice", price);
         data.put("dateAndTime", new Timestamp(date));
-        data.put("menuOrdered", Arrays.asList(item));
+        data.put("menuOrdered", orderMenu);
         data.put("standID", dataPassing.getStandID());
         data.put("seatNumber", dataPassing.getSeatNumber());
         data.put("reservationID", reservationID);

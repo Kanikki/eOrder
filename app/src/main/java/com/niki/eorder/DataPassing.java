@@ -1,6 +1,7 @@
 package com.niki.eorder;
 
 import com.niki.eorder.model.Cart;
+import com.niki.eorder.model.History;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,16 @@ public class DataPassing {
     private String location;
     private String standID;
     private int seatNumber;
+    private History history;
     private ArrayList<Cart> carts = new ArrayList<>();
+
+    public History getHistory() {
+        return history;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
+    }
 
     public ArrayList<Cart> getCarts() {
         return carts;

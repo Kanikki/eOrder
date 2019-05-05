@@ -15,4 +15,19 @@ public class Utility {
 
         return indonesia.format(money);
     }
+
+    public String capitalizeString(String word){
+        String words[] = word.split("\\s");
+        String capitalizeWord = "";
+
+        for (String w : words){
+            String first = w.substring(0, 1);
+            String afterFirst = w.substring(1);
+
+            capitalizeWord += first.toUpperCase() + afterFirst + " ";
+        }
+
+        return  capitalizeWord.trim();
+    }
+
 }

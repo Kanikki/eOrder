@@ -38,7 +38,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MM yyy, HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyy, HH:mm");
         Timestamp timestamp = histories.get(position).getDateAndTime();
 
         holder.tvDate.setText(simpleDateFormat.format(timestamp.toDate()));

@@ -10,7 +10,6 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -27,6 +26,7 @@ public class HistoryList extends AppCompatActivity {
     private ArrayList<History> histories;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Utility util = new Utility();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,11 @@ public class HistoryList extends AppCompatActivity {
 
                     for (DocumentSnapshot d : list){
                         History h = d.toObject(History.class);
+
+                        String locationID = h.getLocationID();
+                        String temp = locationID.replaceAll("_", " ");
+
+                        h.setLocationID(util.capitalizeString(temp));
 
                         Log.d("LOG", "History date : " + h.getDateAndTime().toDate());
                         histories.add(h);

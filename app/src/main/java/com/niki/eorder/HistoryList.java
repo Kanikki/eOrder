@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -45,6 +46,7 @@ public class HistoryList extends AppCompatActivity {
         adapter = new HistoryAdapter(getApplicationContext(), histories);
         recyclerView.setAdapter(adapter);
 
+
         CollectionReference historyRef = db.collection("history");
         historyRef.whereEqualTo("userID", firebaseAuth.getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -54,17 +56,21 @@ public class HistoryList extends AppCompatActivity {
 
                     for (DocumentSnapshot d : list){
                         History h = d.toObject(History.class);
+                        final Map<String, Integer> price = new HashMap<>();
+                        for (final String key : h.getMenuOrdered().keySet()){
+                            DocumentReference documentReference = db.collection("foodcourt/" + h.getLocationID() + "/stand_list/" + h.getStandID() + "/menu").document(key);
 
-                        Map<String, Integer> data = new HashMap<>();
+                            documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    Long p = documentSnapshot.getLong("price");
+                                    Integer s = p.intValue();
+                                    price.put(key, s);
+                                }
+                            });
+                        }
 
-                        db.collection("foodcourt/" + h.getLocationID() + "/stand_list/" + h.getStandID() + "/" + h.getMenuOrdered().keySet()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                            }
-                        });
-
-
+                        h.setPrice(price);
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyy, HH:mm");
                         Timestamp timestamp = h.getDateAndTime();
                         h.setDate(simpleDateFormat.format(timestamp.toDate()));
@@ -77,8 +83,6 @@ public class HistoryList extends AppCompatActivity {
                 }
             }
         });
-
-        Log.d("LOG", "History size : " + histories.size());
 
     }
 }

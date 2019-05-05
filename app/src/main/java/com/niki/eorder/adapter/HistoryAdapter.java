@@ -10,16 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.firebase.Timestamp;
 import com.niki.eorder.Bill;
 import com.niki.eorder.DataPassing;
 import com.niki.eorder.R;
 import com.niki.eorder.Utility;
 import com.niki.eorder.model.History;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
     private Context context;

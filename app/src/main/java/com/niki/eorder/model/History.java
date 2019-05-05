@@ -10,14 +10,15 @@ public class History {
     private Timestamp dateAndTime;
     private int seatNumber;
     private long totalPrice, reservationID;
-    private long price;
-    private Map<String, Integer> menuOrdered = new HashMap<>();
 
-    public long getPrice() {
+    private Map<String, Integer> menuOrdered = new HashMap<>();
+    private Map<String, Integer> price = new HashMap<>();
+
+    public Map<String, Integer> getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(Map<String, Integer> price) {
         this.price = price;
     }
 

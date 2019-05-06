@@ -17,6 +17,7 @@ public class Utility {
     }
 
     public String capitalizeString(String word){
+        word = word.replaceAll("_", " ");
         String words[] = word.split("\\s");
         String capitalizeWord = "";
 

@@ -8,7 +8,7 @@
     android:layout_margin="5dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp"
-    app:cardBackgroundColor="#fff">
+    app:cardBackgroundColor="@color/colorTransparent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,16 @@
             android:layout_height="wrap_content"
             android:text="Mall Taman Anggrek"
             android:textStyle="bold"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorWhite"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:id="@+id/tv_history_seat_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seat Number : 000"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
             android:textSize="22sp"/>
 
         <TextView
@@ -32,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="8 December 2019 - 12:14:06"
             android:textStyle="bold"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorWhite"
             android:textSize="22sp"
             />
 
@@ -42,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="IDR 78.000"
             android:textStyle="bold"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorWhite"
             android:textSize="18sp"
             />
 

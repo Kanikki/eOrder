@@ -55,9 +55,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
 
             }
         });
-
-
-        // holder.price.setText(carts.get(position).getPrice());
+        
     }
 
     @Override

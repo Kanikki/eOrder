@@ -50,6 +50,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
         holder.tvLocation.setText(temp);
 
+        holder.tvSeatNumber.setText("" + histories.get(position).getSeatNumber());
+
         holder.cvHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +71,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     }
 
     public class HistoryViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvLocation, tvPrice, tvDate;
+        private TextView tvLocation, tvPrice, tvDate, tvSeatNumber;
         private CardView cvHistory;
 
         public HistoryViewHolder(View itemView) {
@@ -79,6 +81,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             tvDate = itemView.findViewById(R.id.tv_history_time);
             tvLocation = itemView.findViewById(R.id.tv_history_location);
             tvPrice = itemView.findViewById(R.id.tv_history_total);
+            tvSeatNumber = itemView.findViewById(R.id.tv_history_seat_number);
         }
     }
 }

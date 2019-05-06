@@ -39,6 +39,15 @@
                 android:textSize="24sp" />
 
             <TextView
+                android:id="@+id/bill_seat_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Seat number : 122"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="24sp" />
+
+            <TextView
                 android:id="@+id/bill_stand_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

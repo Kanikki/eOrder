@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.niki.eorder.adapter.OrderAdapter;
 import com.niki.eorder.model.Cart;
+import com.niki.eorder.model.History;
 
 import java.util.ArrayList;
 
@@ -43,7 +45,7 @@ public class OrderList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // disable action bar
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
@@ -165,5 +167,14 @@ public class OrderList extends AppCompatActivity {
         Toast.makeText(OrderList.this, "Order canceled", Toast.LENGTH_SHORT).show();
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(), MenuList.class);
+        Toast.makeText(this, "Order canceled", Toast.LENGTH_SHORT).show();
+        startActivityForResult(intent, 0);
+
+        return true;
     }
 }

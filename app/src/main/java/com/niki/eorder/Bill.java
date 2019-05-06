@@ -1,11 +1,13 @@
 package com.niki.eorder;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -32,9 +34,9 @@ public class Bill extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill);
-        // disable action bar
+
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         DataPassing dataPassing = DataPassing.getInstance();
         history = dataPassing.getHistory();
@@ -71,6 +73,15 @@ public class Bill extends AppCompatActivity {
         seatNumber.setText("Seat number : " + history.getSeatNumber());
 
         Log.d("LOGGER", "" + history.getSeatNumber());
-
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(), History.class);
+        startActivityForResult(intent, 0);
+
+        return true;
+    }
+
 }
+

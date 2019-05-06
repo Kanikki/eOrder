@@ -43,10 +43,6 @@ public class PaymentReceipt extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // disable action bar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
         final Intent intent = getIntent();
         final long price = intent.getIntExtra("paymentPrice", 0);
 

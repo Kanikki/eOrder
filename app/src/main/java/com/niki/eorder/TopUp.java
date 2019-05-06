@@ -1,9 +1,11 @@
 package com.niki.eorder;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.niki.eorder.model.History;
 
 public class TopUp extends AppCompatActivity {
     private EditText etTopUp;
@@ -26,6 +29,8 @@ public class TopUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_up);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         etTopUp = findViewById(R.id.et_top_up);
         btnTopUp = findViewById(R.id.btn_top_up);
@@ -60,5 +65,13 @@ public class TopUp extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+        startActivityForResult(intent, 0);
+
+        return true;
     }
 }

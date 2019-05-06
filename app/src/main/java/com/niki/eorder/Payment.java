@@ -21,9 +21,6 @@ public class Payment extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // disable action bar
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);

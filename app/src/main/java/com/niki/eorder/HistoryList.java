@@ -1,11 +1,13 @@
 package com.niki.eorder;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
@@ -39,7 +41,7 @@ public class HistoryList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_list);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         histories = new ArrayList<>();
         recyclerView = findViewById(R.id.rv_history_list);
@@ -76,5 +78,13 @@ public class HistoryList extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(), History.class);
+        startActivityForResult(intent, 0);
+
+        return true;
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.niki.eorder.model.History;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -32,7 +34,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -87,8 +89,13 @@ public class Profile extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+        startActivityForResult(intent, 0);
 
-
+        return true;
     }
 }

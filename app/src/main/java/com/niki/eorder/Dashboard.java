@@ -23,7 +23,7 @@ public class Dashboard extends AppCompatActivity{
     private Button btnSignOut;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private TextView tvUserEmail, tvUserName, tvUserEbalance;
-    private CardView cvOrderMenu, cvProfile, cvHistory;
+    private CardView cvOrderMenu, cvProfile, cvHistory, cvTopUp;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String name, email;
     private long eBalance;
@@ -42,6 +42,7 @@ public class Dashboard extends AppCompatActivity{
         cvOrderMenu = findViewById(R.id.cv_order_menu);
         cvProfile = findViewById(R.id.cv_profile);
         cvHistory = findViewById(R.id.cv_history);
+        cvTopUp = findViewById(R.id.cv_topup);
 
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +74,14 @@ public class Dashboard extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Profile.class);
+                startActivity(intent);
+            }
+        });
+
+        cvTopUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TopUp.class);
                 startActivity(intent);
             }
         });

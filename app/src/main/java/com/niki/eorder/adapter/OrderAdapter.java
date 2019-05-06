@@ -54,7 +54,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder orderViewHolder, final int i) {
         orderViewHolder.tvName.setText(cartList.get(i).getName());
-        orderViewHolder.tvPrice.setText(String.valueOf("Price : " + cartList.get(i).getPrice()));
+        orderViewHolder.tvPrice.setText("Price : " + util.toIDR(cartList.get(i).getPrice()));
         orderViewHolder.tvSubtotal.setText("Subtotal : " + util.toIDR(cartList.get(i).getQty() * cartList.get(i).getPrice()));
 
         orderViewHolder.btnMin.setOnClickListener(new View.OnClickListener() {

@@ -90,15 +90,13 @@ public class PaymentReceipt extends AppCompatActivity {
             }
         });
 
-        DocumentReference ref1 = db.collection("users").document(firebaseAuth.getUid());
+        final DocumentReference ref1 = db.collection("users").document(firebaseAuth.getUid());
         ref1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Long eBalance = documentSnapshot.getLong("eBalance");
 
-                DocumentReference ref2 = db.collection("users").document(firebaseAuth.getUid());
-
-                ref2.update("eBalance", eBalance - price);
+                ref1.update("eBalance", eBalance - price);
             }
         });
 

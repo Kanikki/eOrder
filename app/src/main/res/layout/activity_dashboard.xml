@@ -107,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_accessibility_black_24dp" />
+                        android:src="@drawable/ic_restaurant_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_accessibility_black_24dp" />
+                        android:src="@drawable/ic_history_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -168,7 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_accessibility_black_24dp" />
+                        android:src="@drawable/ic_attach_money_black_24dp" />
 
                     <TextView
                         android:layout_width="wrap_content"

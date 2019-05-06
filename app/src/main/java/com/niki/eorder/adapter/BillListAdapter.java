@@ -25,7 +25,6 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
     private ArrayList<Cart> carts;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Utility util = new Utility();
-    private DataPassing dataPassing = DataPassing.getInstance();
 
     public BillListAdapter(Context context, ArrayList<Cart> carts){
         this.context = context;
@@ -52,7 +51,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Long price = documentSnapshot.getLong("price");
-                holder.price.setText("IDR " + util.toIDR(price));
+                holder.price.setText("" + util.toIDR(price));
 
             }
         });

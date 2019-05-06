@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Bill extends AppCompatActivity {
-    private TextView locationName, standName, date;
+    private TextView locationName, standName, date, totalPrice;
     private History history;
     private Utility util = new Utility();
     private ArrayList<Cart> carts = new ArrayList<>();
@@ -61,11 +61,11 @@ public class Bill extends AppCompatActivity {
         locationName = findViewById(R.id.bill_locationName);
         standName = findViewById(R.id.bill_stand_name);
         date = findViewById(R.id.bill_time);
+        totalPrice = findViewById(R.id.bill_total_price);
 
         locationName.setText(util.capitalizeString(history.getLocationID().replaceAll("_", " ")));
         standName.setText(util.capitalizeString(history.getStandID()));
         date.setText(history.getDate());
-
-
+        totalPrice.setText("" + util.toIDR(history.getTotalPrice()));
     }
 }

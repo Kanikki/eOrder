@@ -20,10 +20,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Dashboard extends AppCompatActivity{
-    private Button btnSignOut;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private TextView tvUserEmail, tvUserName, tvUserEbalance;
-    private CardView cvOrderMenu, cvProfile, cvHistory, cvTopUp;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String name, email;
     private long eBalance;
@@ -36,6 +34,9 @@ public class Dashboard extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        Button btnSignOut;
+        CardView cvOrderMenu, cvProfile, cvHistory, cvTopUp;
+
 
         btnSignOut = findViewById(R.id.btn_sign_out);
 

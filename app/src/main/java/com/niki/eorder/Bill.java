@@ -8,27 +8,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.niki.eorder.adapter.BillListAdapter;
 import com.niki.eorder.model.Cart;
 import com.niki.eorder.model.History;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class Bill extends AppCompatActivity {
-    private TextView locationName, standName, date, totalPrice, seatNumber;
-    private History history;
     private Utility util = new Utility();
     private ArrayList<Cart> carts = new ArrayList<>();
-    private BillListAdapter adapter;
-    private RecyclerView recyclerView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +28,12 @@ public class Bill extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        DataPassing dataPassing = DataPassing.getInstance();
-        history = dataPassing.getHistory();
 
+        TextView locationName, standName, date, totalPrice, seatNumber;
+        DataPassing dataPassing = DataPassing.getInstance();
+        History history = dataPassing.getHistory();
+        BillListAdapter adapter;
+        RecyclerView recyclerView;
 
         for(String key : history.getMenuOrdered().keySet()){
             Cart c = new Cart();

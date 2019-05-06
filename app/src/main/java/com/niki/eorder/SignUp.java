@@ -26,9 +26,9 @@ import java.util.Map;
 
 
 public class SignUp extends AppCompatActivity {
-    private Button btnSignIn;
+    Button btnSignIn;
     private EditText etFullName, etEmail, etPassword;
-    private ImageView ivSignUp;
+    ImageView ivSignUp;
     private FirebaseAuth firebaseAuth;
     private RelativeLayout relativeLayout;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();

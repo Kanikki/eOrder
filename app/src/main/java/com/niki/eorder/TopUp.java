@@ -16,11 +16,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.niki.eorder.model.History;
 
 public class TopUp extends AppCompatActivity {
     private EditText etTopUp;
-    private Button btnTopUp;
+    Button btnTopUp;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private String topUpValue = "";

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -20,8 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignIn extends AppCompatActivity {
-    private Button btnSignIn;
-    private ImageView ivSignIn;
+    Button btnSignIn;
+    ImageView ivSignIn;
     private EditText etEmail, etPassword;
     private FirebaseAuth firebaseAuth;
     private RelativeLayout relativeLayout;

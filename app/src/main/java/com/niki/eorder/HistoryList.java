@@ -13,24 +13,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.niki.eorder.adapter.HistoryAdapter;
 import com.niki.eorder.model.History;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 public class HistoryList extends AppCompatActivity {
-    private RecyclerView recyclerView;
     private HistoryAdapter adapter;
     private ArrayList<History> histories;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -42,6 +36,8 @@ public class HistoryList extends AppCompatActivity {
         setContentView(R.layout.activity_history_list);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        RecyclerView recyclerView;
 
         histories = new ArrayList<>();
         recyclerView = findViewById(R.id.rv_history_list);

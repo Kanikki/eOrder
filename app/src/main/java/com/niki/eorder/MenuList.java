@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,7 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.niki.eorder.adapter.MenuAdapter;
 import com.niki.eorder.model.Cart;
-import com.niki.eorder.model.History;
 import com.niki.eorder.model.Menu;
 
 
@@ -27,14 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuList extends AppCompatActivity {
-    private FloatingActionButton fab;
     private DataPassing dataPassing = DataPassing.getInstance();
     private ProgressBar progressBar;
-    private RecyclerView recyclerView;
     private MenuAdapter adapter;
-    private FirebaseFirestore db;
     private ArrayList<Menu> menus;
-    private String location = "", standID = "", path = "";
     private ArrayList<Cart> cartList;
 
     @Override
@@ -46,7 +40,11 @@ public class MenuList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_list);
 
-        fab = findViewById(R.id.fab_order_now);
+        FloatingActionButton fab = findViewById(R.id.fab_order_now);
+        RecyclerView recyclerView;
+        FirebaseFirestore db;
+        String location, standID, path;
+
         progressBar = findViewById(R.id.pb_menu_list);
         recyclerView = findViewById(R.id.rv_menu_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

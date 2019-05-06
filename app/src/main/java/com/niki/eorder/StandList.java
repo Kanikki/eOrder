@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -17,7 +16,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.niki.eorder.adapter.StandAdapter;
-import com.niki.eorder.model.History;
 import com.niki.eorder.model.Stand;
 
 import java.util.ArrayList;
@@ -26,12 +24,8 @@ import java.util.List;
 public class StandList extends AppCompatActivity {
     private DataPassing dataPassing = DataPassing.getInstance();
     private ProgressBar progressBar;
-    private RecyclerView recyclerView;
     private StandAdapter adapter;
-    private TextView tvLocation, tvSeatNumber;
-    private FirebaseFirestore db;
     private ArrayList<Stand> stands;
-    private String path = "", location = "", seatNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +34,10 @@ public class StandList extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stand_list);
+
+        RecyclerView recyclerView;
+        FirebaseFirestore db;
+        String path = "", location = "";
 
         progressBar = findViewById(R.id.pb_stand_list);
         recyclerView = findViewById(R.id.rv_stand_list);

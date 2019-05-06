@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import javax.xml.transform.Result;
-
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {

@@ -2,7 +2,6 @@ package com.niki.eorder;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,13 +19,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.niki.eorder.model.Cart;
 
-import org.w3c.dom.Document;
-
-import java.lang.reflect.Array;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,12 +26,12 @@ import java.util.Map;
 import java.util.Random;
 
 public class PaymentReceipt extends AppCompatActivity {
-    private TextView tvReservationID, tvSeatNumber;
+    TextView tvReservationID, tvSeatNumber;
     private DataPassing dataPassing = DataPassing.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private Date date = new Date();
-    private List<Cart> carts;
+    List<Cart> carts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,6 +2,7 @@ package com.niki.eorder;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,13 +36,16 @@ public class PaymentReceipt extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_payment_receipt);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Payment Receipt");
+
         final Intent intent = getIntent();
         final long price = intent.getIntExtra("paymentPrice", 0);
 
         carts = dataPassing.getCarts();
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment_receipt);
 
         Random rand = new Random();
         int reservationID = rand.nextInt(9999) + 1;
@@ -105,5 +109,22 @@ public class PaymentReceipt extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public boolean shouldAllowBack(){
+        return false;
+    }
+    public void doNothing(){
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!shouldAllowBack()){
+            doNothing();
+        }
+        else{
+            super.onBackPressed();
+        }
     }
 }

@@ -27,11 +27,11 @@ import com.niki.eorder.model.Cart;
 import java.util.ArrayList;
 
 public class OrderList extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    RecyclerView recyclerView;
     private TextView tvTotal, tvTax, tvFee, tvGrandTotal;
-    private Button btnOrder, btnCancel;
+    Button btnOrder, btnCancel;
     private OrderAdapter adapter;
-    private int total = 0, fee = 100, tax = 0, grandTotal;
+    int total = 0, fee = 100, tax = 0, grandTotal;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private boolean canPay = true;
@@ -44,6 +44,7 @@ public class OrderList extends AppCompatActivity {
         // disable action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Order");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);

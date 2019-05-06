@@ -31,6 +31,7 @@ public class StandList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Stand");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stand_list);

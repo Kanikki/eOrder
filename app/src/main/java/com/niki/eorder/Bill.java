@@ -27,6 +27,7 @@ public class Bill extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Bill");
 
 
         TextView locationName, standName, date, totalPrice, seatNumber;

@@ -36,6 +36,7 @@ public class HistoryList extends AppCompatActivity {
         setContentView(R.layout.activity_history_list);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("History");
 
         RecyclerView recyclerView;
 

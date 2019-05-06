@@ -34,6 +34,7 @@ public class Profile extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Profile");
     }
 
     @Override

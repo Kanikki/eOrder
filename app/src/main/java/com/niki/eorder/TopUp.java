@@ -30,6 +30,7 @@ public class TopUp extends AppCompatActivity {
         setContentView(R.layout.activity_top_up);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Top Up");
 
         etTopUp = findViewById(R.id.et_top_up);
         btnTopUp = findViewById(R.id.btn_top_up);

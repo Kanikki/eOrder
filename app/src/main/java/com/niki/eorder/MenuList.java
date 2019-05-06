@@ -36,6 +36,7 @@ public class MenuList extends AppCompatActivity {
         // disable action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Menu");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_list);

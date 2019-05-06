@@ -3,12 +3,19 @@ package com.niki.eorder.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.niki.eorder.DataPassing;
 import com.niki.eorder.R;
+import com.niki.eorder.Utility;
 import com.niki.eorder.model.Cart;
 
 import java.util.ArrayList;
@@ -16,6 +23,9 @@ import java.util.ArrayList;
 public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillListViewHolder> {
     private Context context;
     private ArrayList<Cart> carts;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Utility util = new Utility();
+    private DataPassing dataPassing = DataPassing.getInstance();
 
     public BillListAdapter(Context context, ArrayList<Cart> carts){
         this.context = context;
@@ -33,10 +43,22 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BillListViewHolder holder, int position) {
-        holder.qty.setText(carts.get(position).getQty());
-        holder.name.setText(carts.get(position).getName());
-        holder.price.setText(carts.get(position).getPrice());
+    public void onBindViewHolder(@NonNull final BillListViewHolder holder, int position) {
+        holder.qty.setText("" + carts.get(position).getQty());
+        String foodID = carts.get(position).getName();
+        holder.name.setText(util.capitalizeString(foodID));
+        DocumentReference ref = db.collection("foodcourt/" + carts.get(position).getLocationID() + "/stand_list/" + carts.get(position).getStandID() + "/menu").document(carts.get(position).getName());
+        ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Long price = documentSnapshot.getLong("price");
+                holder.price.setText("IDR " + util.toIDR(price));
+
+            }
+        });
+
+
+        // holder.price.setText(carts.get(position).getPrice());
     }
 
     @Override

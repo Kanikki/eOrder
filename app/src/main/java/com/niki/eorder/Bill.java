@@ -36,11 +36,17 @@ public class Bill extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        DataPassing dataPassing = DataPassing.getInstance();
+        history = dataPassing.getHistory();
+
+
         for(String key : history.getMenuOrdered().keySet()){
             Cart c = new Cart();
             c.setName(key);
+            c.setLocationID(history.getLocationID());
+            c.setStandID(history.getStandID());
             c.setQty(history.getMenuOrdered().get(key));
-            c.setPrice(history.getPrice().get(key));
+            c.setPrice(0);
 
             carts.add(c);
         }
@@ -51,10 +57,6 @@ public class Bill extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BillListAdapter(getApplicationContext(), carts);
         recyclerView.setAdapter(adapter);
-
-        DataPassing dataPassing = DataPassing.getInstance();
-        history = dataPassing.getHistory();
-
 
         locationName = findViewById(R.id.bill_locationName);
         standName = findViewById(R.id.bill_stand_name);

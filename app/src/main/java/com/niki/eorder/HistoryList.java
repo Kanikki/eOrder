@@ -62,29 +62,11 @@ public class HistoryList extends AppCompatActivity {
                         Set z = h.getMenuOrdered().keySet();
                         Log.d("LOGGER", "key set : " + z);
 
-                        final Map<String, Integer> price = new HashMap<>();
-                        for (final String key : h.getMenuOrdered().keySet()){
-                            DocumentReference documentReference = db.collection("foodcourt/" + h.getLocationID() + "/stand_list/" + h.getStandID() + "/menu").document(key);
-
-                            documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                    Long p = documentSnapshot.getLong("price");
-                                    Integer s = p.intValue();
-                                    price.put(key, s);
-                                }
-                            });
-                        }
-
-                        Set x = h.getPrice().keySet();
-
-
-                        h.setPrice(price);
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMM yyy, HH:mm");
                         Timestamp timestamp = h.getDateAndTime();
                         h.setDate(simpleDateFormat.format(timestamp.toDate()));
 
-                        for (String k : )
+
                         Log.d("LOG", "History date : " + h.getDateAndTime().toDate());
                         histories.add(h);
                     }

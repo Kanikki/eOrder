@@ -47,11 +47,12 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="24sp" />
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_bill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </ListView>
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 

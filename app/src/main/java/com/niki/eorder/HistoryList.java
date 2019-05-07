@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
@@ -29,6 +31,7 @@ public class HistoryList extends AppCompatActivity {
     private ArrayList<History> histories;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    TextView tvTransactionStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class HistoryList extends AppCompatActivity {
 
         histories = new ArrayList<>();
         recyclerView = findViewById(R.id.rv_history_list);
+        tvTransactionStatus = findViewById(R.id.tv_never_make_transaction);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new HistoryAdapter(getApplicationContext(), histories);
@@ -53,6 +57,7 @@ public class HistoryList extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (!queryDocumentSnapshots.isEmpty()){
+                    tvTransactionStatus.setVisibility(View.INVISIBLE);
                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
 
                     for (DocumentSnapshot d : list){
@@ -71,6 +76,9 @@ public class HistoryList extends AppCompatActivity {
                     }
 
                     adapter.notifyDataSetChanged();
+                }
+                else {
+                    tvTransactionStatus.setVisibility(View.VISIBLE);
                 }
             }
         });

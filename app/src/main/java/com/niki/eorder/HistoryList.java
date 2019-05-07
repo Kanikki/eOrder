@@ -79,7 +79,7 @@ public class HistoryList extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(getApplicationContext(), History.class);
+        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
         startActivityForResult(intent, 0);
 
         return true;

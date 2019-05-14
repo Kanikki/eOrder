@@ -38,10 +38,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:text="Are you ready enjoy a whole new life without quenues? Order Now!"
+        android:text="Are you ready to enjoy a satisfying meal without queues?"
         android:textColor="@color/colorWhite"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.561"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 

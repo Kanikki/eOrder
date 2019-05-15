@@ -71,7 +71,7 @@ public class Bill extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(getApplicationContext(), History.class);
+        Intent intent = new Intent(getApplicationContext(), HistoryList.class);
         startActivityForResult(intent, 0);
 
         return true;

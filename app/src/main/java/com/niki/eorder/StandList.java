@@ -67,7 +67,10 @@ public class StandList extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 }
                 else{
-                    Toast.makeText(StandList.this, "Aw, Snap!, please try again in a few minutes", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Aw, Snap!, Your Qr Code is broken", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
 
